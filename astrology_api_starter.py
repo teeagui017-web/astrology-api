@@ -8,7 +8,7 @@ app = Flask(__name__)
 def home():
     return '🔭 Astrology API is running!'
 
-@app.route('/analyze', methods=['GET'])
+@app.route("/analyze", methods=["GET"])
 def analyze():
     return jsonify({
         "message": "This endpoint will analyze natal and transit data in future updates."
