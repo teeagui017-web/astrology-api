@@ -24,9 +24,6 @@ def get_zr():
     lon = float(request.args.get('lon'))
     city = request.args.get('city', 'Los Angeles')
 
-    result = fetch_zodiacal_releasing(name, birth_date, birth_time, lat, lon, city)
-    return result
-
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+     return jsonify({
+        "message": f"Zodiacal Releasing request received for {name} on {birth_date} at {birth_time} in {city} (Lat: {lat}, Lon: {lon})"
+    })
