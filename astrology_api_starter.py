@@ -1,3 +1,13 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return '🔭 Astrology API is running!'
+
+if __name__ == '__main__':
+    app.run()
 
 from flask import Flask, jsonify
 
