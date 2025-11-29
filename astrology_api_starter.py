@@ -20,21 +20,23 @@ def get_zr():
     name = request.args.get('name', 'Unknown')
     birth_date = request.args.get('birth_date')  # Format: YYYY-MM-DD
     birth_time = request.args.get('birth_time')  # Format: HH:MM
-    lat = float(request.args.get('lat'))
-    lon = float(request.args.get('lon'))
+    lat = float(request.args.get('lat', 0.0))
+    lon = float(request.args.get('lon', 0.0))
     city = request.args.get('city', 'Los Angeles')
 
-    # Example response — you’ll update this with actual AstroSeek data
-    return jsonify({
-        "name": name,
-        "birth_date": birth_date,
-        "birth_time": birth_time,
-        "latitude": lat,
-        "longitude": lon,
-        "city": city,
-        "message": "Zodiacal Releasing data will be fetched soon!"
-    })
+    try:
+        result = fetch_zodiacal_releasing(
+            name=name,
+            birth_date=birth_date,
+            birth_time=birth_time,
+            lat=lat,
+            lon=lon,
+            city=city
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host='0.0.0.0', port=port)
